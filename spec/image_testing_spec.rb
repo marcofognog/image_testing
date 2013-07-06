@@ -21,6 +21,11 @@ describe "image_testing" do
     it "should find the smaller image in within the bigger, even if it is in other position" do
       is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/diff-position-uni-16.gif").should be(true)
     end
+
+    it "should find the smaller image in within the bigger, even if the bigger image has a set of two pixels similar to the start of the patern" do
+      is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/false-pattern-start-uni-16.gif").should be(true)
+    end
+
   end
 
 end
