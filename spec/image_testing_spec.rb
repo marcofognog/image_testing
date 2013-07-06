@@ -13,4 +13,8 @@ describe "image_testing" do
     is_it_contained_in?("tomato2x2.gif", "different_tomato.gif").should be(false)
   end
 
+  it "should NOT find the smaller image in the bigger, because they'r not the same, but uses the same colors" do
+    is_it_contained_in?("tomato2x2.gif", "diff_with_same_colors_tomato.gif").should be(false)
+  end
+
 end
