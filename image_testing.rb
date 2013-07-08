@@ -54,12 +54,12 @@ def find_couples(contained, container)
   couples = []
   ced_pixel = Image::View.new(contained, 0,0, contained.columns, contained.rows )[0][0]
   ced_c, ced_r = 0, 0
-    container.each_pixel do |cer_pixel, cer_c, cer_r|
-      couple = Couple.new(Pixel.new(ced_pixel, ced_r, ced_c, contained), Pixel.new(cer_pixel, cer_r , cer_c, container))
-      if couple.same_color?
-        couples << couple
-      end
+  container.each_pixel do |cer_pixel, cer_c, cer_r|
+    couple = Couple.new(Pixel.new(ced_pixel, ced_r, ced_c, contained), Pixel.new(cer_pixel, cer_r , cer_c, container))
+    if couple.same_color?
+      couples << couple
     end
+  end
   couples
 end
 
