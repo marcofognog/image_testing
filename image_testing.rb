@@ -9,7 +9,6 @@ class NoPixel
 end
 
 class Pixel
-
   def initialize(row, col, image)
     @image = image
     @rmagick_pixel = view[row][col]
@@ -41,7 +40,6 @@ class Pixel
   def view
     Image::View.new(@image, 0,0, @image.columns, @image.rows)
   end
-
 end
 
 def is_it_contained_in?(contained_path, container_path)
@@ -66,13 +64,16 @@ def find_couples(contained, container)
   couples
 end
 
-# Couple of pixels
+# Couple of pixels, each from a different image
 class Couple
   def initialize(ced_pixel, cer_pixel)
     @ced_pixel = ced_pixel
     @cer_pixel = cer_pixel
   end
 
+  # Check if the neighbor from the right side
+  # of a pixel has the same color as the right side neighbor
+  # of the other pixel
   def same_neighbor?(neighbor_number)
     @ced_pixel.neighbor(neighbor_number).color_equal?(@cer_pixel.neighbor(neighbor_number))
   end
