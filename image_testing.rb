@@ -25,9 +25,9 @@ class Pixel
     @rmagick_pixel.to_color(AllCompliance, false, QuantumDepth, true)
   end
 
-  def right_neighbor
+  def neighbor(number)
     view = Image::View.new(@image, 0,0, @image.columns, @image.rows )
-    next_col = @col + 1
+    next_col = @col + 1 + number
     if next_col < @image.columns
       Pixel.new(view[0][next_col], 0, next_col, @image)
     else
@@ -60,7 +60,9 @@ end
 
 def pixels_match?(ced_pixel, cer_pixel)
   if ced_pixel.color == cer_pixel.color
-    ced_pixel.right_neighbor.color_equal?(cer_pixel.right_neighbor)
+    if ced_pixel.neighbor(0).color_equal?(cer_pixel.neighbor(0))
+      ced_pixel.neighbor(1).color_equal?(cer_pixel.neighbor(1))
+    end
   end
 end
 
