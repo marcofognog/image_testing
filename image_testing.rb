@@ -49,7 +49,7 @@ def is_it_contained_in?(contained_path, container_path)
   contained.each_pixel do |ced_pixel, ced_c, ced_r|
     container.each_pixel do |cer_pixel, cer_c, cer_r|
       couple = Couple.new(Pixel.new(ced_pixel, ced_r, ced_c, contained), Pixel.new(cer_pixel, cer_r , cer_c, container))
-      if couple.match?
+      if couple.patern_match?
         found_ar << true
       end
     end
@@ -77,7 +77,7 @@ class Couple
     @ced_pixel.color == @cer_pixel.color
   end
 
-  def match?
+  def patern_match?
     if same_color?
       conditions = ""
       length = @ced_pixel.image.columns
