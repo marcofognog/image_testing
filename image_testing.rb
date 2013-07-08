@@ -44,7 +44,7 @@ def is_it_contained_in?(contained_path, container_path)
 
   contained.each_pixel do |ced_pixel, ced_c, ced_r|
     container.each_pixel do |cer_pixel, cer_c, cer_r|
-      if pixels_match?(Pixel.new(ced_pixel, ced_r, ced_c, contained), Pixel.new(cer_pixel, cer_r , cer_c, container))
+      if pixels_match?(Pixel.new(ced_pixel, ced_r, ced_c, contained), Pixel.new(cer_pixel, cer_r , cer_c, container), contained.columns)
         found_ar << true
       end
     end
@@ -58,11 +58,19 @@ def is_it_contained_in?(contained_path, container_path)
 end
 
 
-def pixels_match?(ced_pixel, cer_pixel)
+def pixels_match?(ced_pixel, cer_pixel, image_length)
   if ced_pixel.color == cer_pixel.color
-    if ced_pixel.neighbor(0).color_equal?(cer_pixel.neighbor(0))
-      ced_pixel.neighbor(1).color_equal?(cer_pixel.neighbor(1))
+    conditions = ""
+
+    (image_length - 1).times do |i|
+     conditions << "if ced_pixel.neighbor(#{i}).color_equal?(cer_pixel.neighbor(#{i}))\n"
     end
+    conditions << "ced_pixel.neighbor(#{image_length}).color_equal?(cer_pixel.neighbor(#{image_length}))\n"
+    (image_length - 1).times do |i|
+     conditions << "end\n"
+    end
+
+    eval(conditions)
   end
 end
 
