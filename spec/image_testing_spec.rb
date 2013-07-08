@@ -3,7 +3,7 @@ $LOAD_PATH << "."
 require 'rspec'
 require 'image_testing'
 
-describe "image_testing" do
+describe "#is_it_contained_in?" do
 
   context "Unidimensional" do
     it "should find a segment of the image within the whole image" do
@@ -25,7 +25,6 @@ describe "image_testing" do
     it "should find the smaller image in within the bigger, even if the bigger image has a set of two pixels similar to the start of the patern" do
       is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/false-pattern-start-uni-16.gif").should be(true)
     end
-
   end
 
 end
