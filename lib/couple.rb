@@ -16,7 +16,7 @@ class Couple
     @ced_pixel.color == @cer_pixel.color
   end
 
-  def patern_match?
+  def pattern_match?
     if same_color?
       conditions = ""
       length = @ced_pixel.image.columns
