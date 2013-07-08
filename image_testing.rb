@@ -10,11 +10,11 @@ end
 
 class Pixel
 
-  def initialize(rmagick_pixel, row, col, image)
-    @rmagick_pixel = rmagick_pixel
+  def initialize(row, col, image)
+    @image = image
+    @rmagick_pixel = view[row][col]
     @row = row
     @col = col
-    @image = image
   end
 
   def color_equal?(pixel)
@@ -30,13 +30,16 @@ class Pixel
   end
 
   def neighbor(number)
-    view = Image::View.new(@image, 0,0, @image.columns, @image.rows )
     next_col = @col + 1 + number
     if next_col < @image.columns
-      Pixel.new(view[0][next_col], 0, next_col, @image)
+      Pixel.new(0, next_col, @image)
     else
       NoPixel.new
     end
+  end
+
+  def view
+    Image::View.new(@image, 0,0, @image.columns, @image.rows)
   end
 
 end
@@ -52,10 +55,10 @@ end
 
 def find_couples(contained, container)
   couples = []
-  ced_pixel = Image::View.new(contained, 0,0, contained.columns, contained.rows )[0][0]
   ced_c, ced_r = 0, 0
+  pixel = Pixel.new(ced_r, ced_r, contained)
   container.each_pixel do |cer_pixel, cer_c, cer_r|
-    couple = Couple.new(Pixel.new(ced_pixel, ced_r, ced_c, contained), Pixel.new(cer_pixel, cer_r , cer_c, container))
+    couple = Couple.new(pixel, Pixel.new(cer_r , cer_c, container))
     if couple.same_color?
       couples << couple
     end
