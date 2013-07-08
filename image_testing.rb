@@ -50,7 +50,7 @@ def is_it_contained_in?(contained_path, container_path)
   found_ar = []
 
   couples = find_couples(contained, container)
-  couples.last.patern_match?
+  couples.map(&:patern_match?).any?
 end
 
 def find_couples(contained, container)
