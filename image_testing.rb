@@ -69,14 +69,22 @@ class Couple
     @cer_pixel = cer_pixel
   end
 
+  def same_neighbor?(neighbor_number)
+    @ced_pixel.neighbor(neighbor_number).color_equal?(@cer_pixel.neighbor(neighbor_number))
+  end
+
+  def same_color?
+    @ced_pixel.color == @cer_pixel.color
+  end
+
   def match?
-    if @ced_pixel.color == @cer_pixel.color
+    if same_color?
       conditions = ""
       length = @ced_pixel.image.columns
       (length - 1).times do |i|
-       conditions << "if @ced_pixel.neighbor(#{i}).color_equal?(@cer_pixel.neighbor(#{i}))\n"
+       conditions << "if same_neighbor?(#{i})\n"
       end
-      conditions << "@ced_pixel.neighbor(#{length}).color_equal?(@cer_pixel.neighbor(#{length}))\n"
+      conditions << "same_neighbor?(length)\n"
       (length - 1).times do |i|
        conditions << "end\n"
       end
