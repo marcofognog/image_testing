@@ -21,6 +21,10 @@ class Pixel
     color == pixel.color
   end
 
+  def image
+    @image
+  end
+
   def color
     @rmagick_pixel.to_color(AllCompliance, false, QuantumDepth, true)
   end
@@ -44,7 +48,8 @@ def is_it_contained_in?(contained_path, container_path)
 
   contained.each_pixel do |ced_pixel, ced_c, ced_r|
     container.each_pixel do |cer_pixel, cer_c, cer_r|
-      if pixels_match?(Pixel.new(ced_pixel, ced_r, ced_c, contained), Pixel.new(cer_pixel, cer_r , cer_c, container), contained.columns)
+      couple = Couple.new(Pixel.new(ced_pixel, ced_r, ced_c, contained), Pixel.new(cer_pixel, cer_r , cer_c, container))
+      if couple.match?
         found_ar << true
       end
     end
@@ -57,20 +62,27 @@ def is_it_contained_in?(contained_path, container_path)
   end
 end
 
+# Couple of pixels
+class Couple
+  def initialize(ced_pixel, cer_pixel)
+    @ced_pixel = ced_pixel
+    @cer_pixel = cer_pixel
+  end
 
-def pixels_match?(ced_pixel, cer_pixel, image_length)
-  if ced_pixel.color == cer_pixel.color
-    conditions = ""
+  def match?
+    if @ced_pixel.color == @cer_pixel.color
+      conditions = ""
+      length = @ced_pixel.image.columns
+      (length - 1).times do |i|
+       conditions << "if @ced_pixel.neighbor(#{i}).color_equal?(@cer_pixel.neighbor(#{i}))\n"
+      end
+      conditions << "@ced_pixel.neighbor(#{length}).color_equal?(@cer_pixel.neighbor(#{length}))\n"
+      (length - 1).times do |i|
+       conditions << "end\n"
+      end
 
-    (image_length - 1).times do |i|
-     conditions << "if ced_pixel.neighbor(#{i}).color_equal?(cer_pixel.neighbor(#{i}))\n"
+      eval(conditions)
     end
-    conditions << "ced_pixel.neighbor(#{image_length}).color_equal?(cer_pixel.neighbor(#{image_length}))\n"
-    (image_length - 1).times do |i|
-     conditions << "end\n"
-    end
-
-    eval(conditions)
   end
 end
 
