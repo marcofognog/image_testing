@@ -38,7 +38,6 @@ end
 def is_it_contained_in?(contained_path, container_path)
   container = Image.read(container_path).first
   contained = Image.read(contained_path).first
-  found_ar = []
 
   couples = find_couples(contained, container)
   couples.map(&:pattern_match?).any?
