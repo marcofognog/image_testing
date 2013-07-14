@@ -27,6 +27,16 @@ describe "#is_it_contained_in?" do
     end
   end
 
+  context "Bidimensional" do
+    it "should find a unidimentional image within the bidimensional image" do
+      is_it_contained_in?("bidimensional/uni-4-1.gif", "bidimensional/16x2.gif").should be(true)
+    end
+
+    it "should find a unidimentionsl segment of the bidimensional image in the second row of the bigger image" do
+      is_it_contained_in?("bidimensional/uni-4-second-row.gif", "bidimensional/16x2.gif").should be(true)
+    end
+  end
+
 end
 
 describe "#find_couple" do
