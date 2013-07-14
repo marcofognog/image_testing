@@ -16,7 +16,21 @@ class Couple
     @ced_pixel.color == @cer_pixel.color
   end
 
-  def pattern_match?
+  def last_row?
+    @ced_pixel.image.rows >= @ced_pixel.row
+  end
+
+  def match?
+    if !last_row?
+      other_ced = Pixel.new(@ced_pixel.row + 1, @ced_pixel.col, @ced_pixel.image)
+      other_cer = Pixel.new(@cer_pixel.row + 1, @cer_pixel.col, @cer_pixel.image)
+      other_couple = Couple.new(other_cer, other_cer)
+      other_couple.match_row?
+    end
+    match_row?
+  end
+
+  def match_row?
     if same_color?
       conditions = ""
       length = @ced_pixel.image.columns

@@ -17,6 +17,14 @@ class Pixel
     color == pixel.color
   end
 
+  def row
+    @row
+  end
+
+  def col
+    @col
+  end
+
   def image
     @image
   end
@@ -27,7 +35,7 @@ class Pixel
 
   def neighbor(number)
     next_col = @col + 1 + number
-    Pixel.new(0, next_col, @image)
+    Pixel.new(@row, next_col, @image)
   end
 
   def view
@@ -40,7 +48,7 @@ def is_it_contained_in?(contained_path, container_path)
   contained = Image.read(contained_path).first
 
   couples = find_couples(contained, container)
-  couples.map(&:pattern_match?).any?
+  couples.map { |c| c.match? }.any?
 end
 
 def find_couples(contained, container)
