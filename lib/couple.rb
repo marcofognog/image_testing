@@ -9,7 +9,15 @@ class Couple
   # of a pixel has the same color as the right side neighbor
   # of the other pixel
   def same_neighbor?(neighbor_number)
-    @ced_pixel.neighbor(neighbor_number).color_equal?(@cer_pixel.neighbor(neighbor_number))
+    @neighbor_count = neighbor_number
+    if !last_pixel?
+      if @ced_pixel.neighbor(neighbor_number).color_equal?(@cer_pixel.neighbor(neighbor_number))
+        same_neighbor?(@neighbor_count += 1)
+      end
+    else
+      true
+    end
+
   end
 
   def same_color?
@@ -30,20 +38,13 @@ class Couple
     match_row?
   end
 
-  def match_row?
-    if same_color?
-      conditions = ""
-      length = @ced_pixel.image.columns
-      (length - 1).times do |i|
-       conditions << "if same_neighbor?(#{i})\n"
-      end
-      conditions << "true\n"
-      (length - 1).times do |i|
-       conditions << "end\n"
-      end
-
-      eval(conditions)
-    end
+  def last_pixel?
+    @neighbor_count == @ced_pixel.image.columns - 1
   end
+
+  def match_row?
+    same_neighbor?(0)
+  end
+
 end
 
