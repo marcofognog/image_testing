@@ -25,6 +25,10 @@ describe "#is_it_contained_in?" do
     it "should find the smaller image in within the bigger, even if the bigger image has a set of two pixels similar to the start of the patern" do
       is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/false-pattern-start-uni-16.gif").should be(true)
     end
+
+    it "should find even if both images are big" do
+      is_it_contained_in?("unidimensional/big-uni-smaller.jpg", "unidimensional/big-uni-bigger.jpg").should be(true)
+    end
   end
 
   context "Bidimensional" do
