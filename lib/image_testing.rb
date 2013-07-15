@@ -39,7 +39,7 @@ class Pixel
   end
 
   def view
-    Image::View.new(@image, 0,0, @image.columns, @image.rows)
+    image.view(0,0, @image.columns, @image.rows)
   end
 end
 
