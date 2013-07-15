@@ -27,7 +27,7 @@ class Pixel
   end
 
   def neighbor(number)
-    next_col = @col + 1 + number
+    next_col = @col + number
     Pixel.new(@row, next_col, @image)
   end
 

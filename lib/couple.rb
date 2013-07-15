@@ -1,18 +1,24 @@
 # Couple of pixels, each from a different image
 class Couple
+  
   def initialize(ced_pixel, cer_pixel)
     @ced_pixel = ced_pixel
     @cer_pixel = cer_pixel
+  end
+
+  def total_neighbors
+    @ced_pixel.image.columns - 1
   end
 
   # Check if the neighbor from the right side
   # of a pixel has the same color as the right side neighbor
   # of the other pixel
   def same_neighbor?(neighbor_number)
-    @neighbor_count = neighbor_number
-    if !last_pixel?
+    if neighbor_number != total_neighbors
       if @ced_pixel.neighbor(neighbor_number).color_equal?(@cer_pixel.neighbor(neighbor_number))
-        same_neighbor?(@neighbor_count += 1)
+        same_neighbor?(neighbor_number + 1)
+      else
+        false
       end
     else
       true
@@ -36,10 +42,6 @@ class Couple
       other_couple.match_row?
     end
     match_row?
-  end
-
-  def last_pixel?
-    @neighbor_count == @ced_pixel.image.columns - 1
   end
 
   def match_row?
