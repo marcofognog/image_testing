@@ -11,7 +11,7 @@ describe "#is_it_contained_in?" do
       is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/uni-16.gif").should be(true)
     end
 
-    it "should NOT find the smaller image in the bigger image, because their different" do
+    it "should NOT find the smaller image in the bigger image, because they are different" do
       is_it_contained_in?("unidimensional/diff-uni-4.gif", "unidimensional/uni-16.gif").should be_false
     end
 
@@ -37,7 +37,7 @@ describe "#is_it_contained_in?" do
       is_it_contained_in?("bidimensional/uni-4-1.gif", "bidimensional/16x2.gif").should be(true)
     end
 
-    it "should find a unidimentionsl segment of the bidimensional image in the second row of the bigger image" do
+    it "should find a unidimentional segment of the bidimensional image in the second row of the bigger image" do
       is_it_contained_in?("bidimensional/uni-4-second-row.gif", "bidimensional/16x2.gif").should be(true)
     end
   end
@@ -46,7 +46,7 @@ end
 
 describe "#find_couple" do
   context "Unidimensional" do
-    it "should find a couple with the first pixel of the conteined image within the whole image" do
+    it "should find a couple with the first pixel of the contained image within the whole image" do
       container = Image.read("unidimensional/uni-16.gif").first
       contained = Image.read("unidimensional/uni-4.gif").first
       couples = find_couples(contained, container)
