@@ -19,10 +19,9 @@ describe "#is_it_contained_in?" do
       is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/same-colors-uni-16.gif").should be_false
     end
 
-    it "should NOT find the smaller image in the bigger, beacse only the last 3 pixels match " do
+    it "should NOT find the smaller image in the bigger, because only the last pixel match " do
       is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/last-3-uni-16.gif").should be_false
     end
-
 
     it "should find the smaller image in within the bigger, even if it is in other position" do
       is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/diff-position-uni-16.gif").should be(true)

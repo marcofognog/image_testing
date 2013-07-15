@@ -15,8 +15,12 @@ class Couple
   # of the other pixel
   def same_neighbor?(neighbor_number)
     if neighbor_number != total_neighbors
-      if @ced_pixel.neighbor(neighbor_number).color_equal?(@cer_pixel.neighbor(neighbor_number))
-        same_neighbor?(neighbor_number + 1)
+      if (@cer_pixel.col + neighbor_number) < @cer_pixel.image.columns
+        if @ced_pixel.neighbor(neighbor_number).color_equal?(@cer_pixel.neighbor(neighbor_number))
+          same_neighbor?(neighbor_number + 1)
+        else
+          false
+        end
       else
         false
       end
