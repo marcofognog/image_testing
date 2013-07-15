@@ -2,6 +2,7 @@ $LOAD_PATH << "."
 
 require 'rspec'
 require 'lib/image_testing'
+require 'lib/pixel'
 
 describe "#is_it_contained_in?" do
 
