@@ -51,11 +51,15 @@ describe "#is_it_contained_in?" do
     
     it "should find a unidimentional image within a bigger bidimensional image" do
       is_it_contained_in?("bidimensional/uni-4-1.gif", "bidimensional/tomato.gif").should be(true)
-    end  
+    end
+    
+    it "should find a unidimentional image within a even bigger bidimensional image" do
+      is_it_contained_in?("bidimensional/uni-tomato100x54.bmp", "bidimensional/tomato100x54.bmp").should be(true)
+    end
   end
 
   context "performance" do
-
+    
   end
 
 end
