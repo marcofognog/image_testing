@@ -45,12 +45,6 @@ class Couple
   end
 
   def match?
-    if !last_row?
-      other_ced = Pixel.new(@ced_pixel.row + 1, @ced_pixel.col, @ced_pixel.image)
-      other_cer = Pixel.new(@cer_pixel.row + 1, @cer_pixel.col, @cer_pixel.image)
-      other_couple = Couple.new(other_cer, other_cer)
-      other_couple.match_row?
-    end
     match_row?
   end
 
