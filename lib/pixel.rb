@@ -26,9 +26,9 @@ class Pixel
     @rmagick_pixel.to_color(AllCompliance, false, QuantumDepth, true)
   end
 
-  def neighbor(number)
+  def neighbor(row_number, number)
     next_col = @col + number
-    Pixel.new(@row, next_col, @image)
+    Pixel.new(@row + row_number, next_col, @image)
   end
 
   def view
