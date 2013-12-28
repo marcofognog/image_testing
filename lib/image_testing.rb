@@ -16,9 +16,9 @@ end
 def find_couples(contained, container)
   couples = []
   ced_c, ced_r = 0, 0
-  pixel = Pixel.new(ced_r, ced_r, contained)
+  first_pixel = Pixel.new(ced_r, ced_r, contained)
   container.each_pixel do |cer_pixel, cer_c, cer_r|
-    couple = Couple.new(pixel, Pixel.new(cer_r , cer_c, container))
+    couple = Couple.new(first_pixel, Pixel.new(cer_r , cer_c, container))
     if couple.same_color?
       couples << couple
     end
