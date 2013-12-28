@@ -7,32 +7,36 @@ require 'lib/pixel'
 describe "#is_it_contained_in?" do
 
   context "Unidimensional" do
-    it "should find a segment of the image within the whole image" do
-      is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/uni-16.gif").should be(true)
-    end
+    context "should NOT find" do
+      it "the smaller image in the bigger image, because they are different" do
+        is_it_contained_in?("unidimensional/diff-uni-4.gif", "unidimensional/uni-16.gif").should be_false
+      end
 
-    it "should NOT find the smaller image in the bigger image, because they are different" do
-      is_it_contained_in?("unidimensional/diff-uni-4.gif", "unidimensional/uni-16.gif").should be_false
-    end
+      it "the smaller image in the bigger, because they'r not the same, but uses the same colors" do
+        is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/same-colors-uni-16.gif").should be_false
+      end
 
-    it "should NOT find the smaller image in the bigger, because they'r not the same, but uses the same colors" do
-      is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/same-colors-uni-16.gif").should be_false
+      it "the smaller image in the bigger, because only the last pixel match " do
+        is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/last-3-uni-16.gif").should be_false
+      end
     end
+    
+    context "shoul find" do
+      it "a segment of the image within the whole image" do
+        is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/uni-16.gif").should be(true)
+      end
 
-    it "should NOT find the smaller image in the bigger, because only the last pixel match " do
-      is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/last-3-uni-16.gif").should be_false
-    end
+      it "the smaller image in within the bigger, even if it is in other position" do
+        is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/diff-position-uni-16.gif").should be(true)
+      end
 
-    it "should find the smaller image in within the bigger, even if it is in other position" do
-      is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/diff-position-uni-16.gif").should be(true)
-    end
+      it "the smaller image in within the bigger, even if the bigger image has a set of two pixels similar to the start of the patern" do
+        is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/false-pattern-start-uni-16.gif").should be(true)
+      end
 
-    it "should find the smaller image in within the bigger, even if the bigger image has a set of two pixels similar to the start of the patern" do
-      is_it_contained_in?("unidimensional/uni-4.gif", "unidimensional/false-pattern-start-uni-16.gif").should be(true)
-    end
-
-    it "should find even if both images are big" do
-      is_it_contained_in?("unidimensional/big-uni-smaller.jpg", "unidimensional/big-uni-bigger.jpg").should be(true)
+      it "even if both images are big" do
+        is_it_contained_in?("unidimensional/big-uni-smaller.jpg", "unidimensional/big-uni-bigger.jpg").should be(true)
+      end
     end
   end
 
