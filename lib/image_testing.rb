@@ -2,15 +2,19 @@ $LOAD_PATH << "."
 
 require 'RMagick'
 require 'couple'
+require 'segment'
 require 'pixel'
 
 include Magick
+
 
 def is_it_contained_in?(contained_path, container_path)
   container = Image.read(container_path).first
   contained = Image.read(contained_path).first
 
-  couples = find_couples(contained, container)
+  container_view = Segment.new(0,0, container.columns, container.rows, container)
+  contained_view = Segment.new(0,0, contained.columns, contained.rows, contained)
+  couples = find_couples(contained_view, container_view)
   couples.map { |c| c.match? }.any?
 end
 
