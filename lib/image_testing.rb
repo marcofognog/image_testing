@@ -2,6 +2,7 @@ $LOAD_PATH << "."
 
 require 'RMagick'
 require 'couple'
+require 'pixel'
 
 include Magick
 
