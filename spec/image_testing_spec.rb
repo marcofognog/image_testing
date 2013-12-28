@@ -64,6 +64,14 @@ describe "#is_it_contained_in?" do
     it "should NOT find a BIidimentional image within a bidimensional image" do
       is_it_contained_in?("bidimensional/not-tomato6x6.gif", "bidimensional/tomato.gif").should be(false)
     end
+    
+    it "should find a BIidimentional image within a bigger bidimensional image" do
+      is_it_contained_in?("bidimensional/seg-tomato100x54.bmp", "bidimensional/tomato100x54.bmp").should be(true)
+    end
+    
+    it "should NOT find a BIidimentional image within a bigger bidimensional image" do
+      is_it_contained_in?("bidimensional/not-seg-tomato100x54.bmp", "bidimensional/tomato100x54.bmp").should be(false)
+    end
   end
 
   context "performance" do
