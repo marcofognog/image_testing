@@ -24,5 +24,23 @@ class Segment
     @image.view(x, y, width, height)
   end
 
+  def is_contained_in?(container_segment)
+    couples = find_couples(container_segment)
+    couples.map { |c| c.match? }.any?
+  end
+
+  def find_couples(container)
+    couples = []
+    ced_c, ced_r = 0, 0
+    first_pixel = Pixel.new(ced_r, ced_r, self)
+    container.each_pixel do |cer_pixel, cer_c, cer_r|
+      couple = Couple.new(first_pixel, Pixel.new(cer_r, cer_c, container))
+      if couple.same_color?
+        couples << couple
+      end
+    end
+    couples
+  end
+
 end
 
