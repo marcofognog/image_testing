@@ -34,5 +34,15 @@ describe "Segment" do
       end
     end
   end
+  
+  describe "#is_contained_in?" do
+    it "matches correctly, starting at pixel (2,2)" do
+      container = Image.read("bidimensional/tomato.gif").first
+      contained = Image.read("bidimensional/tomato6x6.gif").first
+      container_segment = Segment.new(0,0, container.columns, container.rows, container)
+      contained_segment = Segment.new(2,2, contained.columns, contained.rows, contained)
+      contained_segment.is_contained_in?(container_segment).should be_true
+    end
+  end
 end
 
