@@ -51,7 +51,6 @@ class Couple
   def match_row?(row)
     if @ced_pixel.image.rows == row
       return true
-      
     else
       if same_neighbor?(row, 0)
         match_row?(row + 1)
