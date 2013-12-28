@@ -45,11 +45,20 @@ class Couple
   end
 
   def match?
-    match_row?
+    match_row?(0)
   end
 
-  def match_row?
-    same_neighbor?(0,0)
+  def match_row?(row)
+    if @ced_pixel.image.rows == row
+      return true
+      
+    else
+      if same_neighbor?(row, 0)
+        match_row?(row + 1)
+      else
+        false
+      end
+    end
   end
 
 end
