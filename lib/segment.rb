@@ -32,7 +32,7 @@ class Segment
   end
   
   def create_view
-    @image.view(@x_start,@y_start, @width, @height)
+    @view ||= @image.view(@x_start,@y_start, @width, @height)
   end
 
   def is_contained_in?(container_segment)
