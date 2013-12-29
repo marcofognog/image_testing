@@ -69,6 +69,26 @@ describe "Segment" do
         contained_segment.is_contained_in?(container_segment).should be_true
       end
     end
+
+    context "Segmentation - the proof that the segmentation is workig" do
+      it "doesn't match if we look for the contained (smaller) image whitin the container (bigger) image" do
+        container = Image.read("bidimensional/fluffy-cat.bmp").first
+        contained = Image.read("bidimensional/not-seg-fluffy-cat.bmp").first
+        container_segment = Segment.new(0,0, container.columns, container.rows, container)
+        contained_segment = Segment.new(0, 0, contained.columns, contained.rows, contained)
+        contained_segment.is_contained_in?(container_segment).should be_false
+      end
+
+      it "matchs if we lok for just the segment both images have in comomm: the fluffy cat" do
+        container = Image.read("bidimensional/fluffy-cat.bmp").first
+        contained = Image.read("bidimensional/not-seg-fluffy-cat.bmp").first
+
+        fluffy_cat = [190, 160,380, 290, contained]
+        container_segment = Segment.new(0,0, container.columns, container.rows, container)
+        contained_segment = Segment.new(*fluffy_cat)
+        contained_segment.is_contained_in?(container_segment).should be_true
+      end
+    end
   end
 end
 
