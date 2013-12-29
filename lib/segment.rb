@@ -1,27 +1,38 @@
 class Segment
   
-  def initialize(x_start, y_start, x_finish, y_finish, rmagick_image)
-    @x_start, @y_start, @x_finish, @y_finish = x_start, y_start, x_finish, y_finish
+  def initialize(x_start, y_start, width, height, rmagick_image)
+    @x_start = x_start
+    @y_start = y_start
+    @width = width
+    @height = height
     @image = rmagick_image
   end
   
+  def x
+    @x_start
+  end
+  
+  def y
+    @y_start
+  end
+  
   def each_pixel
-    @image.get_pixels(@x_start, @y_start, @x_finish, @y_finish).each_with_index do |p, n|
+    @image.get_pixels(@x_start, @y_start, @width, @height).each_with_index do |p, n|
       yield(p, n%columns, n/columns)
     end
     self
   end
   
   def columns
-    @x_finish - @x_start
+    @width
   end
   
   def rows
-    @y_finish - @y_start
+    @height
   end
   
-  def view(x, y, width, height)
-    @image.view(x, y, width, height)
+  def create_view
+    @image.view(@x_start,@y_start, @width, @height)
   end
 
   def is_contained_in?(container_segment)
@@ -31,12 +42,12 @@ class Segment
 
   def find_couples(container)
     couples = []
-    ced_c, ced_r = 0, 0
-    first_pixel = Pixel.new(ced_r, ced_r, self)
+    ced_c, ced_r = 0,0
+    first_pixel = Pixel.new(ced_r, ced_c, self)
     container.each_pixel do |cer_pixel, cer_c, cer_r|
-      couple = Couple.new(first_pixel, Pixel.new(cer_r, cer_c, container))
-      if couple.same_color?
-        couples << couple
+      tested_pixel = Pixel.new(cer_r, cer_c, container)
+      if tested_pixel.color == first_pixel.color
+        couples << Couple.new(first_pixel, tested_pixel)
       end
     end
     couples

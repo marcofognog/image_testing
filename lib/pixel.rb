@@ -1,9 +1,9 @@
 class Pixel
   def initialize(row, col, image)
     @image = image
-    @rmagick_pixel = view[row][col]
     @row = row
     @col = col
+    @rmagick_pixel = view[row][col]
   end
 
   def color_equal?(pixel)
@@ -32,6 +32,6 @@ class Pixel
   end
 
   def view
-    image.view(0,0, @image.columns, @image.rows)
+    image.create_view
   end
 end

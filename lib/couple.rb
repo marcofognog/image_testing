@@ -14,18 +14,19 @@ class Couple
   # of a pixel has the same color as the right side neighbor
   # of the other pixel
   def same_neighbor?(row_number, neighbor_number)
-  
-    # This doesn't consider the last pixel, but assumes they are equal
-    return true if last_neighbor?(neighbor_number)
 
-    if within_horizontal_limits?(neighbor_number)
-      if @ced_pixel.neighbor(row_number, neighbor_number).color_equal?(@cer_pixel.neighbor(row_number, neighbor_number))
-        same_neighbor?(row_number, neighbor_number + 1)
-      else
-        false
+    # This doesn't consider the last pixel, but assumes they are equal
+    if last_neighbor?(neighbor_number)
+      return true
+    else
+      if within_horizontal_limits?(neighbor_number)
+        if @ced_pixel.neighbor(row_number, neighbor_number).color_equal?(@cer_pixel.neighbor(row_number, neighbor_number))
+          same_neighbor?(row_number, neighbor_number + 1)
+        else
+          false
+        end
       end
     end
-
   end
 
   def last_neighbor?(neighbor_pixel)
