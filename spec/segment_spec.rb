@@ -51,6 +51,24 @@ describe "Segment" do
       contained_segment = Segment.new(60, 60, contained.columns - 60, contained.rows - 60, contained)
       contained_segment.is_contained_in?(container_segment).should be_true
     end
+
+    context "matches correclty a bigger images, using just a segment of the contained image" do
+      it "#1" do
+        container = Image.read("bidimensional/tomato300x161.bmp").first
+        contained = Image.read("bidimensional/seg-tomato300x161.bmp").first
+        container_segment = Segment.new(0,0, container.columns, container.rows, container)
+        contained_segment = Segment.new(60, 60, contained.columns - 60, contained.rows - 60, contained)
+        contained_segment.is_contained_in?(container_segment).should be_true
+      end
+      
+      it "#2" do
+        container = Image.read("bidimensional/tomato1200x1143.bmp").first
+        contained = Image.read("bidimensional/seg-tomato1200x1143.bmp").first
+        container_segment = Segment.new(0,0, container.columns, container.rows, container)
+        contained_segment = Segment.new(0, 0, contained.columns, contained.rows, contained)
+        contained_segment.is_contained_in?(container_segment).should be_true
+      end
+    end
   end
 end
 
