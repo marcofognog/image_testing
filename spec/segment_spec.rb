@@ -65,7 +65,7 @@ describe "Segment" do
         container = Image.read("bidimensional/tomato1200x1143.bmp").first
         contained = Image.read("bidimensional/seg-tomato1200x1143.bmp").first
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
-        contained_segment = Segment.new(0, 0, contained.columns, contained.rows, contained)
+        contained_segment = Segment.new(700, 600, contained.columns - 700, contained.rows - 600, contained)
         contained_segment.is_contained_in?(container_segment).should be_true
       end
     end
