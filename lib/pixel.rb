@@ -23,7 +23,7 @@ class Pixel
   end
 
   def color
-    @color ||= @rmagick_pixel.to_color(AllCompliance, false, QuantumDepth, true)
+    @color ||= @rmagick_pixel.to_color(AllCompliance, false, MAGICKCORE_QUANTUM_DEPTH, true)
   end
 
   def neighbor(row_number, number)
