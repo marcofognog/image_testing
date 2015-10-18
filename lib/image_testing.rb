@@ -1,6 +1,6 @@
 $LOAD_PATH << "."
 
-require 'RMagick'
+require 'rmagick'
 require 'couple'
 require 'segment'
 require 'pixel'
