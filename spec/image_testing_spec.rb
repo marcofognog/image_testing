@@ -72,7 +72,14 @@ describe "#is_it_contained_in?" do
     it "should NOT find a BIidimensional image within a bigger bidimensional image" do
       assert !is_it_contained_in?("bidimensional/not-seg-tomato100x54.bmp", "bidimensional/tomato100x54.bmp")
     end
+
+    context "using the four segments from the corners" do
+      it "finds the contained image within the container image" do
+        assert is_it_contained_in?("bidimensional/tomato100x54.bmp", "bidimensional/four-corners-tomato100x54.bmp", :four_corners)
+      end
+    end
   end
+
 
 end
 
