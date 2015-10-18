@@ -63,8 +63,9 @@ describe "Segment" do
       end
     end
 
-    context "Segmentation - the proof that the segmentation is workig" do
-      it "doesn't match if we look for the contained (smaller) image whitin the container (bigger) image" do
+    context "Segmentation" do
+      context "on the contained image: specific segment of the contained image are found in the container"
+      it "these proves those two images are different ..." do
         container = Image.read("bidimensional/fluffy-cat.bmp").first
         contained = Image.read("bidimensional/not-seg-fluffy-cat.bmp").first
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
@@ -72,14 +73,37 @@ describe "Segment" do
         assert !contained_segment.is_contained_in?(container_segment)
       end
 
-      it "matches if we look for just the segment both images have in common: the fluffy cat" do
+      it "... but, matches if we look for just the segment both images have in common: the fluffy cat" do
         container = Image.read("bidimensional/fluffy-cat.bmp").first
         contained = Image.read("bidimensional/not-seg-fluffy-cat.bmp").first
 
         fluffy_cat_seg_params = [190, 160,380, 290, contained]
-        container_segment = Segment.new(0,0, container.columns, container.rows, container)
+        container_params = [0,0, container.columns, container.rows, container]
+
+        container_segment = Segment.new(*container_params)
         contained_segment = Segment.new(*fluffy_cat_seg_params)
         assert contained_segment.is_contained_in?(container_segment)
+      end
+    end
+
+    context "on the container image" do
+      it "can find a image pattern on a segment of the container image" do
+        container = Image.read("bidimensional/tomato-seg.gif").first
+        contained = Image.read("bidimensional/tomato-half.gif").first
+        container_segment = Segment.new(0,0, container.columns, 8, container)
+        contained_segment = Segment.new(0,0, contained.columns, contained.rows, contained)
+
+        assert contained_segment.is_contained_in?(container_segment)
+      end
+
+      it "wont'd find, proving the segmentation on the conteiner: the whole container image
+      contains the contained image, but not in the specified segment." do
+        container = Image.read("bidimensional/tomato-seg.gif").first
+        contained = Image.read("bidimensional/tomato-half.gif").first
+        container_segment = Segment.new(0,8, container.columns, 8, container)
+        contained_segment = Segment.new(0,0, contained.columns, contained.rows, contained)
+
+        assert !contained_segment.is_contained_in?(container_segment)
       end
     end
   end
