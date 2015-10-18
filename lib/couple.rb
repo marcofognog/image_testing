@@ -1,6 +1,6 @@
 # Couple of pixels, each from a different image
 class Couple
-  
+
   def initialize(ced_pixel, cer_pixel)
     @ced_pixel = ced_pixel
     @cer_pixel = cer_pixel
