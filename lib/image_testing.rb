@@ -14,6 +14,8 @@ def is_it_contained_in?(contained_path, container_path)
 
   container_segment = Segment.new(0,0, container.columns, container.rows, container)
   contained_segment = Segment.new(0,0, contained.columns, contained.rows, contained)
+
   contained_segment.is_contained_in?(container_segment)
 end
+
 
