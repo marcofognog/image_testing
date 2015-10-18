@@ -75,6 +75,10 @@ describe "#is_it_contained_in?" do
 
     context "using the four segments from the corners" do
       it "finds the contained image within the container image" do
+        assert is_it_contained_in?("bidimensional/seg-tomato100x54.bmp", "bidimensional/tomato100x54.bmp", :four_corners)
+      end
+
+      it "proves that this match happens the four corner segmentation strategy" do
         assert is_it_contained_in?("bidimensional/tomato100x54.bmp", "bidimensional/four-corners-tomato100x54.bmp", :four_corners)
       end
     end
