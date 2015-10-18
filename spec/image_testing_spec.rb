@@ -57,19 +57,19 @@ describe "#is_it_contained_in?" do
       assert is_it_contained_in?("bidimensional/uni-tomato100x54.bmp", "bidimensional/tomato100x54.bmp")
     end
 
-    it "should find a BIidimensional image within a bidimensional image" do
+    it "should find a bidimensional image within a bidimensional image" do
       assert is_it_contained_in?("bidimensional/tomato6x6.gif", "bidimensional/tomato.gif")
     end
 
-    it "should NOT find a BIidimensional image within a bidimensional image" do
+    it "should NOT find a bidimensional image within a bidimensional image" do
       assert !is_it_contained_in?("bidimensional/not-tomato6x6.gif", "bidimensional/tomato.gif")
     end
 
-    it "should find a BIidimensional image within a bigger bidimensional image" do
+    it "should find a bidimensional image within a bigger bidimensional image" do
       assert is_it_contained_in?("bidimensional/seg-tomato100x54.bmp", "bidimensional/tomato100x54.bmp")
     end
 
-    it "should NOT find a BIidimensional image within a bigger bidimensional image" do
+    it "should NOT find a bidimensional image within a bigger bidimensional image" do
       assert !is_it_contained_in?("bidimensional/not-seg-tomato100x54.bmp", "bidimensional/tomato100x54.bmp")
     end
 
@@ -83,7 +83,6 @@ describe "#is_it_contained_in?" do
       end
     end
   end
-
 
 end
 

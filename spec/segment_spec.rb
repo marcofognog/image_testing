@@ -45,15 +45,7 @@ describe "Segment" do
       assert contained_segment.is_contained_in?(container_segment)
     end
 
-    it "matches correclty a bigger image, using just a segment of the contained image" do
-      container = Image.read("bidimensional/tomato300x161.bmp").first
-      contained = Image.read("bidimensional/seg-tomato300x161.bmp").first
-      container_segment = Segment.new(0,0, container.columns, container.rows, container)
-      contained_segment = Segment.new(60, 60, contained.columns - 60, contained.rows - 60, contained)
-      assert contained_segment.is_contained_in?(container_segment)
-    end
-
-    context "matches correclty a bigger images, using just a segment of the contained image" do
+    context "matches correclty a bigger image, using just a segment of the contained image" do
       it "#1" do
         container = Image.read("bidimensional/tomato300x161.bmp").first
         contained = Image.read("bidimensional/seg-tomato300x161.bmp").first
@@ -62,7 +54,7 @@ describe "Segment" do
         assert contained_segment.is_contained_in?(container_segment)
       end
 
-      it "#2" do
+      it "#2 even bigger image" do
         container = Image.read("bidimensional/tomato1200x1143.bmp").first
         contained = Image.read("bidimensional/seg-tomato1200x1143.bmp").first
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
@@ -80,13 +72,13 @@ describe "Segment" do
         assert !contained_segment.is_contained_in?(container_segment)
       end
 
-      it "matchs if we lok for just the segment both images have in comomm: the fluffy cat" do
+      it "matches if we look for just the segment both images have in common: the fluffy cat" do
         container = Image.read("bidimensional/fluffy-cat.bmp").first
         contained = Image.read("bidimensional/not-seg-fluffy-cat.bmp").first
 
-        fluffy_cat = [190, 160,380, 290, contained]
+        fluffy_cat_seg_params = [190, 160,380, 290, contained]
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
-        contained_segment = Segment.new(*fluffy_cat)
+        contained_segment = Segment.new(*fluffy_cat_seg_params)
         assert contained_segment.is_contained_in?(container_segment)
       end
     end
