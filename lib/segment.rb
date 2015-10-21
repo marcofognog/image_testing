@@ -2,6 +2,8 @@ require 'comparator'
 
 class Segment
 
+  attr :image
+
   def initialize(x_start, y_start, width, height, rmagick_image)
     @x_start = x_start
     @y_start = y_start

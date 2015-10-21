@@ -106,6 +106,32 @@ describe "Segment" do
         assert !contained_segment.is_contained_in?(container_segment)
       end
     end
+
+    context "use the whole image strategy to search segment" do
+      it "for a simple image" do
+        container = Image.read("bidimensional/tomato.gif").first
+        contained = Image.read("bidimensional/tomato6x6.gif").first
+        container_segment = Segment.new(0, 0, container.columns, container.rows, container)
+        contained_segment = Segment.new(2, 2, contained.columns - 2, contained.rows - 2, contained)
+        assert Comparator.compare(container_segment, contained_segment, true)
+      end
+
+      it "for a medium size image" do
+        container = Image.read("bidimensional/tomato300x161.bmp").first
+        contained = Image.read("bidimensional/seg-tomato300x161.bmp").first
+        container_segment = Segment.new(0, 0, container.columns, container.rows, container)
+        contained_segment = Segment.new(2, 2, contained.columns - 2, contained.rows - 2, contained)
+        assert Comparator.compare(container_segment, contained_segment, true)
+      end
+
+      it "for a bigger image" do
+        container = Image.read("bidimensional/tomato1200x1143.bmp").first
+        contained = Image.read("bidimensional/seg-tomato1200x1143.bmp").first
+        container_segment = Segment.new(0, 0, container.columns, container.rows, container)
+        contained_segment = Segment.new(700, 600, contained.columns - 700, contained.rows - 600, contained)
+        assert Comparator.compare(container_segment, contained_segment, true)
+      end
+    end
   end
 end
 
