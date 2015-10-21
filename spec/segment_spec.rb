@@ -12,7 +12,7 @@ describe "Segment" do
         contained = Image.read("unidimensional/uni-4.gif").first
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
         contained_segment = Segment.new(0,0, contained.columns, contained.rows, contained)
-        couples = contained_segment.find_couples(container_segment)
+        couples = Comparator.find_couples(container_segment, contained_segment)
         assert_equal(1, couples.count)
       end
 
@@ -21,7 +21,7 @@ describe "Segment" do
         contained = Image.read("unidimensional/diff-uni-4.gif").first
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
         contained_segment = Segment.new(0,0, contained.columns, contained.rows, contained)
-        couples = contained_segment.find_couples(container_segment)
+        couples = Comparator.find_couples(container_segment, contained_segment)
         assert_equal(1, couples.count)
       end
 
@@ -30,7 +30,7 @@ describe "Segment" do
         contained = Image.read("unidimensional/diff-uni-4.gif").first
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
         contained_segment = Segment.new(0,0, contained.columns, contained.rows, contained)
-        couples = contained_segment.find_couples(container_segment)
+        couples = Comparator.find_couples(container_segment, contained_segment)
         assert_equal(2, couples.count)
       end
     end

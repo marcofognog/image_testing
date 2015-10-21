@@ -1,3 +1,5 @@
+require 'comparator'
+
 class Segment
 
   def initialize(x_start, y_start, width, height, rmagick_image)
@@ -36,21 +38,7 @@ class Segment
   end
 
   def is_contained_in?(container_segment)
-    couples = find_couples(container_segment)
-    couples.map { |c| c.match? }.any?
-  end
-
-  def find_couples(container)
-    couples = []
-    ced_c, ced_r = 0,0
-    first_pixel = Pixel.new(ced_r, ced_c, self)
-    container.each_pixel do |cer_pixel, cer_c, cer_r|
-      tested_pixel = Pixel.new(cer_r, cer_c, container)
-      if tested_pixel.color == first_pixel.color
-        couples << Couple.new(first_pixel, tested_pixel)
-      end
-    end
-    couples
+    Comparator.compare(container_segment, self)
   end
 
 end
