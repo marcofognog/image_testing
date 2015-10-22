@@ -46,7 +46,7 @@ describe "Comparator" do
     end
 
     context "matches correclty a bigger image, using just a segment of the contained image" do
-      it "#1" do
+      it "#1", :slow do
         container = Image.read("bidimensional/tomato300x161.bmp").first
         contained = Image.read("bidimensional/seg-tomato300x161.bmp").first
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
@@ -54,7 +54,7 @@ describe "Comparator" do
         assert Comparator.compare(container_segment, contained_segment)
       end
 
-      it "#2 even bigger image" do
+      it "#2 even bigger image", :slow do
         container = Image.read("bidimensional/tomato1200x1143.bmp").first
         contained = Image.read("bidimensional/seg-tomato1200x1143.bmp").first
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
@@ -116,7 +116,7 @@ describe "Comparator" do
         assert Comparator.compare(container_segment, contained_segment, true)
       end
 
-      it "for a medium size image" do
+      it "for a medium size image", :slow do
         container = Image.read("bidimensional/tomato300x161.bmp").first
         contained = Image.read("bidimensional/seg-tomato300x161.bmp").first
         container_segment = Segment.new(0, 0, container.columns, container.rows, container)
@@ -124,7 +124,7 @@ describe "Comparator" do
         assert Comparator.compare(container_segment, contained_segment, true)
       end
 
-      it "for a bigger image" do
+      it "for a bigger image", :slow do
         container = Image.read("bidimensional/tomato1200x1143.bmp").first
         contained = Image.read("bidimensional/seg-tomato1200x1143.bmp").first
         container_segment = Segment.new(0, 0, container.columns, container.rows, container)
