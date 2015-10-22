@@ -16,7 +16,7 @@ def is_it_contained_in?(contained_path, container_path, strategy = :full)
     container_segment = Segment.new(0,0, container.columns, container.rows, container)
     contained_segment = Segment.new(0,0, contained.columns, contained.rows, contained)
 
-    return contained_segment.is_contained_in?(container_segment)
+    return Comparator.compare(container_segment, contained_segment)
   elsif strategy == :four_corners
     measure = 10
 
@@ -51,7 +51,7 @@ def is_it_contained_in?(contained_path, container_path, strategy = :full)
 
     corners.each do |corner|
       contained_segment = Segment.new(corner[:x_start], corner[:y_start], corner[:x_width], corner[:y_width], contained)
-      found_corners << corner if contained_segment.is_contained_in?(container_segment)
+      found_corners << corner if Comparator.compare(container_segment, contained_segment)
     end
     return found_corners.count == 4
   else

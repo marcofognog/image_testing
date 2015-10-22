@@ -39,9 +39,5 @@ class Segment
     @view ||= @image.view(@x_start,@y_start, @width, @height)
   end
 
-  def is_contained_in?(container_segment)
-    Comparator.compare(container_segment, self)
-  end
-
 end
 

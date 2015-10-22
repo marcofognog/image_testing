@@ -42,7 +42,7 @@ describe "Segment" do
       contained = Image.read("bidimensional/tomato6x6.gif").first
       container_segment = Segment.new(0, 0, container.columns, container.rows, container)
       contained_segment = Segment.new(1, 1, contained.columns - 1, contained.rows - 1, contained)
-      assert contained_segment.is_contained_in?(container_segment)
+      assert Comparator.compare(container_segment, contained_segment)
     end
 
     context "matches correclty a bigger image, using just a segment of the contained image" do
@@ -51,7 +51,7 @@ describe "Segment" do
         contained = Image.read("bidimensional/seg-tomato300x161.bmp").first
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
         contained_segment = Segment.new(60, 60, contained.columns - 60, contained.rows - 60, contained)
-        assert contained_segment.is_contained_in?(container_segment)
+        assert Comparator.compare(container_segment, contained_segment)
       end
 
       it "#2 even bigger image" do
@@ -59,7 +59,7 @@ describe "Segment" do
         contained = Image.read("bidimensional/seg-tomato1200x1143.bmp").first
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
         contained_segment = Segment.new(700, 600, contained.columns - 700, contained.rows - 600, contained)
-        assert contained_segment.is_contained_in?(container_segment)
+        assert Comparator.compare(container_segment, contained_segment)
       end
     end
 
@@ -70,7 +70,7 @@ describe "Segment" do
         contained = Image.read("bidimensional/not-seg-fluffy-cat.bmp").first
         container_segment = Segment.new(0,0, container.columns, container.rows, container)
         contained_segment = Segment.new(0, 0, contained.columns, contained.rows, contained)
-        assert !contained_segment.is_contained_in?(container_segment)
+        assert !Comparator.compare(container_segment, contained_segment)
       end
 
       it "... but, matches if we look for just the segment both images have in common: the fluffy cat" do
@@ -82,7 +82,7 @@ describe "Segment" do
 
         container_segment = Segment.new(*container_params)
         contained_segment = Segment.new(*fluffy_cat_seg_params)
-        assert contained_segment.is_contained_in?(container_segment)
+        assert Comparator.compare(container_segment, contained_segment)
       end
     end
 
@@ -93,7 +93,7 @@ describe "Segment" do
         container_segment = Segment.new(0,0, container.columns, 8, container)
         contained_segment = Segment.new(0,0, contained.columns, contained.rows, contained)
 
-        assert contained_segment.is_contained_in?(container_segment)
+        assert Comparator.compare(container_segment, contained_segment)
       end
 
       it "wont'd find, proving the segmentation on the conteiner: the whole container image
@@ -103,7 +103,7 @@ describe "Segment" do
         container_segment = Segment.new(0,8, container.columns, 8, container)
         contained_segment = Segment.new(0,0, contained.columns, contained.rows, contained)
 
-        assert !contained_segment.is_contained_in?(container_segment)
+        assert !Comparator.compare(container_segment, contained_segment)
       end
     end
 
