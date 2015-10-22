@@ -4,7 +4,7 @@ require 'rspec'
 require 'spec_helper'
 require 'lib/image_testing'
 
-describe "Segment" do
+describe "Comparator" do
   describe "#find_couple" do
     context "Unidimensional" do
       it "should find a couple with the first pixel of the contained image within the whole image" do
@@ -36,7 +36,7 @@ describe "Segment" do
     end
   end
 
-  describe "#is_contained_in?" do
+  describe "#compare" do
     it "matches correctly, starting at pixel (2,2)" do
       container = Image.read("bidimensional/tomato.gif").first
       contained = Image.read("bidimensional/tomato6x6.gif").first
