@@ -133,5 +133,15 @@ describe "Comparator" do
       end
     end
   end
+
+  describe '#found_coordinates' do
+    it 'returns the first pixels coordinates' do
+      container = Image.read("bidimensional/tomato.gif").first
+      contained = Image.read("bidimensional/tomato6x6.gif").first
+      container_segment = Segment.new(0, 0, container.columns, container.rows, container)
+      contained_segment = Segment.new(2, 2, contained.columns - 2, contained.rows - 2, contained)
+      assert_equal [[12,12]], Comparator.found_coordinates(container_segment, contained_segment)
+    end
+  end
 end
 

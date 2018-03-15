@@ -1,5 +1,6 @@
 # Couple of pixels, each from a different image
 class Couple
+  attr_reader :cer_pixel
 
   def initialize(ced_pixel, cer_pixel)
     @ced_pixel = ced_pixel

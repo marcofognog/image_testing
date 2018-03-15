@@ -26,6 +26,11 @@ class Comparator
     couples.map { |c| c.match? }.any?
   end
 
+  def self.found_coordinates(container_segment, contained_segment)
+    couples = find_couples(container_segment, contained_segment)
+    couples.select { |c| c.match? }.map { |c| [c.cer_pixel.row, c.cer_pixel.col] }
+  end
+
   def self.find_couples(container, contained)
     couples = []
     ced_c, ced_r = 0,0
